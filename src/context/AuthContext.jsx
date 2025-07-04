@@ -9,7 +9,7 @@ export const useAuthContext = () => {
   return useContext(createAuthContext);
 };
 
-axios.defaults.baseURL = "https://intelligentmind.shop/api/v1";
+axios.defaults.baseURL = "https://intelligentmind.shop/api";
 axios.defaults.headers.common["Accept"] = "*/*";
 axios.defaults.headers.common["Content-Type"] = "application/json";
 
@@ -23,13 +23,10 @@ const AuthContext = ({ children }) => {
     setLoading(true);
     const { username, password } = values;
     try {
-      const response = await axios.post(
-        "https://intelligentmind.shop/api/v1/auth/login",
-        {
-          username,
-          password,
-        }
-      );
+      const response = await axios.post("/v1/auth/login", {
+        username,
+        password,
+      });
 
       console.log("Login response:", response.data.token);
       axios.defaults.headers.common.Authorization = `Bearer ${response.data.token}`;
@@ -60,11 +57,14 @@ const AuthContext = ({ children }) => {
     localStorage.removeItem("token");
     setToken(null);
     navigate("/");
+    setError({});
   };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+      localStorage.setItem("token", `${token}`);
       setToken(token);
     }
   }, [token]);
