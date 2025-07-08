@@ -2,7 +2,7 @@ import { Table, Badge, Text, ActionIcon, Group } from "@mantine/core";
 import React from "react";
 import { MdEdit, MdDelete, MdVisibility } from "react-icons/md";
 
-const DataTable = () => {
+const DataTable = ({data,componentname}) => {
   // Dummy data for the table
   const dummyData = [
     {
@@ -122,7 +122,7 @@ const DataTable = () => {
 
   return (
     <div style={{ height: "450px", overflow: "auto" }}>
-      <Table
+      {/* <Table
         style={{
           backgroundColor: "white",
           borderRadius: "8px",
@@ -264,9 +264,62 @@ const DataTable = () => {
             </Table.Tr>
           ))}
         </Table.Tbody>
+      </Table> */}
+       <Table
+        style={{
+          backgroundColor: "white",
+          borderRadius: "8px",
+        }}
+        withColumnBorders
+        stickyHeader
+      >
+        <Table.Thead>
+          <Table.Tr style={{ backgroundColor: "rgb(16 97 162)" }}>
+            <Table.Th
+              style={{
+                padding: "16px",
+                position: "sticky",
+                top: 0,
+                backgroundColor: "rgb(16 97 162)",
+                zIndex: 1,
+              }}
+            >
+              <Text fw={600} c="white">
+                Coach Number
+              </Text>
+            </Table.Th>
+            <Table.Th
+              style={{
+                padding: "16px",
+                position: "sticky",
+                top: 0,
+                backgroundColor: "rgb(16 97 162)",
+                zIndex: 1,
+              }}
+            >
+              <Text fw={600} c="white">
+                Coach Type
+              </Text>
+            </Table.Th>
+           
+          </Table.Tr>
+        </Table.Thead>
+        <Table.Tbody>
+          {data?.map((row) => (
+            <Table.Tr key={row?.coach_id}>
+              <Table.Td style={{ padding: "16px" }}>
+                <Text fw={500}>{row?.coach_number}</Text>
+              </Table.Td>
+              <Table.Td style={{ padding: "16px" }}>
+                <Text>{row?.coach_type}</Text>
+              </Table.Td>
+           
+            </Table.Tr>
+          ))}
+        </Table.Tbody>
       </Table>
     </div>
   );
 };
 
-export default DataTable;
+export default React.memo(DataTable);

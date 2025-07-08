@@ -7,8 +7,14 @@ const TableLoader = () => {
   // Create an array with 7 elements for columns
   const columns = Array(7).fill(null);
 
+   // Create an array with 10 elements for rows
+  const coachesRows = Array(10).fill(null);
+  // Create an array with 7 elements for columns
+  const coachesColumns = Array(2).fill(null);
+
   return (
-    <Table
+    <>
+    {/* <Table
       style={{
         backgroundColor: "white",
         borderRadius: "8px",
@@ -39,8 +45,42 @@ const TableLoader = () => {
           </Table.Tr>
         ))}
       </Table.Tbody>
+    </Table> */}
+
+    <Table
+      style={{
+        backgroundColor: "white",
+        borderRadius: "8px",
+        overflow: "hidden",
+      }}
+    >
+      <Table.Thead>
+        <Table.Tr>
+          {coachesColumns.map((_, index) => (
+            <Table.Th key={index} style={{ padding: "16px" }}>
+              <Skeleton height={20} radius="sm" width="80%" />
+            </Table.Th>
+          ))}
+        </Table.Tr>
+      </Table.Thead>
+      <Table.Tbody>
+        {coachesRows.map((_, rowIndex) => (
+          <Table.Tr key={rowIndex}>
+            {coachesColumns.map((_, colIndex) => (
+              <Table.Td key={colIndex} style={{ padding: "16px" }}>
+                <Skeleton
+                  height={16}
+                  radius="sm"
+                  width={colIndex === 0 ? "40%" : "70%"}
+                />
+              </Table.Td>
+            ))}
+          </Table.Tr>
+        ))}
+      </Table.Tbody>
     </Table>
+    </>
   );
 };
 
-export default TableLoader;
+export default React.memo(TableLoader);

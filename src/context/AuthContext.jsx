@@ -2,16 +2,13 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
+import { serviceAxiosInstance } from "../services/config";
 const createAuthContext = createContext();
 
 export const useAuthContext = () => {
   return useContext(createAuthContext);
 };
 
-axios.defaults.baseURL = "https://intelligentmind.shop/api";
-axios.defaults.headers.common["Accept"] = "*/*";
-axios.defaults.headers.common["Content-Type"] = "application/json";
 
 const AuthContext = ({ children }) => {
   const [loading, setLoading] = useState(false);
@@ -23,7 +20,7 @@ const AuthContext = ({ children }) => {
     setLoading(true);
     const { username, password } = values;
     try {
-      const response = await axios.post("/v1/auth/login", {
+      const response = await serviceAxiosInstance.post("/v1/auth/login", {
         username,
         password,
       });
@@ -60,14 +57,12 @@ const AuthContext = ({ children }) => {
     setError({});
   };
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
-      localStorage.setItem("token", `${token}`);
-      setToken(token);
-    }
-  }, [token]);
+useEffect(()=>{
+  const token = localStorage.getItem("token");
+  if(token){
+    setToken(token)
+  }
+},[])
 
   return (
     <createAuthContext.Provider

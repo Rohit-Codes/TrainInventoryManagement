@@ -6,6 +6,7 @@ import Rooms from "./pages/Rooms";
 import Inventory from "./pages/Inventory";
 import DashBoardData from "./pages/DashBoardData";
 import { useAuthContext } from "./context/AuthContext";
+import CreateRake from "./pages/CreateRake";
 
 function App() {
   const { token } = useAuthContext();
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<Dashboard />}>
             <Route index element={<DashBoardData />} /> {/* /dashboard */}
             <Route path="coaches" element={<Rooms />} />{" "}
+            <Route path="createrake" element={<CreateRake />} />{" "}
             {/* /dashboard/coaches */}
             <Route path="inventory" element={<Inventory />} />{" "}
             {/* /dashboard/inventory */}

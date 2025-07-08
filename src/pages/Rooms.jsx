@@ -12,27 +12,13 @@ import axios from "axios";
 import TableLoader from "../components/TableLoader";
 import DataTable from "../components/DataTable";
 
+
 const Rooms = () => {
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleCoachData = async () => {
-    axios
-      .get("/coaches/search")
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
-  useEffect(() => {
-    handleCoachData();
 
-    // return () => {
-    //   handleCoachData();
-    // };
-  }, []);
+
 
   return (
     <div className="rooms-container">
